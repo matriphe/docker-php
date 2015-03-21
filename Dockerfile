@@ -1,7 +1,7 @@
 FROM debian:wheezy
 
 # persistent / runtime deps
-RUN apt-get update && apt-get install -y ca-certificates curl libxml2 mcrypt libmcrypt-dev libpng-dev libxslt-dev curl-dev --no-install-recommends && rm -r /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y ca-certificates curl libxml2 mcrypt libmcrypt-dev libpng-dev libxslt-dev --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 # phpize deps
 RUN apt-get update && apt-get install -y autoconf gcc libc-dev make pkg-config --no-install-recommends && rm -r /var/lib/apt/lists/*
