@@ -55,7 +55,7 @@ RUN buildDeps=" \
 COPY docker-php-ext-* /usr/local/bin/
 
 WORKDIR /usr/share/nginx/html
-COPY php-fpm.conf /etc/php/
+COPY php-fpm.conf $PHP_INI_DIR/
 
 EXPOSE 9000
 CMD ["php-fpm"]
