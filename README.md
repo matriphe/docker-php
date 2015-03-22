@@ -14,13 +14,13 @@ This command will build a docker image named "php" from location "."
 ## To Run
 
 ```bash
-docker run -d -p 80:80 --name phpfpm php
+docker run -d -p 9000:9000 --name phpfpm php
 ```
 
-This command will run using default configuration. To change the configuration `php.ini` (read only), just add -v to command like this.
+This command will run using default configuration, listening on port 9000. To change the configuration `php.ini` (read only), just add -v to command like this.
 
 ```bash
-docker run -d -p 80:80 -v /path/to/php/config/php.ini:/etc/php-fpm/php.ini:ro --name phpfpm php
+docker run -d -p 9000:9000 -v /path/to/php/config/php.ini:/etc/php-fpm/php.ini:ro --name phpfpm php
 ```
 
 ## Ingredients
