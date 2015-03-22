@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y ca-certificates curl libxml2 mcrypt lib
 RUN apt-get update && apt-get install -y autoconf gcc libc-dev make pkg-config --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV PHP_INI_DIR /etc/php
+ENV PHP_INI_DIR /etc/php-fpm
 RUN mkdir -p $PHP_INI_DIR/conf.d
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data
@@ -25,6 +25,9 @@ RUN buildDeps=" \
 		libreadline6-dev \
 		libssl-dev \
 		libxml2-dev \
+		libmcrypt-dev \
+		libpng-dev \
+		libxslt-dev \
 	"; \
 	set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
@@ -52,10 +55,10 @@ RUN buildDeps=" \
 	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $buildDeps \
 	&& make clean
 
-COPY docker-php-ext-* /usr/local/bin/
+COPY conf/docker-php-ext-* /usr/local/bin/
 
 WORKDIR /usr/share/nginx/html
-COPY php-fpm.conf $PHP_INI_DIR/
+COPY conf/php-fpm.conf $PHP_INI_DIR/
 
 EXPOSE 9000
 CMD ["php-fpm"]
